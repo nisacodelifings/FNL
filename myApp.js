@@ -9,22 +9,38 @@ var app = express();
 
 
 /** 1) Meet the node console. */
-
+// console.log("hello, world");
 
 /** 2) A first working Express Server */
-
+// app.get("/", function(req, res) {
+//   res.send("Hello Express");
+// });
 
 /** 3) Serve an HTML file */
-
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/views/index.html");
+});
 
 /** 4) Serve static assets  */
-
+// Normal usage
+app.use(express.static(__dirname + "/public"));
+// Assets at the /assets route
+// app.use("/assets", express.static(__dirname + "/public"));
 
 /** 5) serve JSON on a specific route */
-
-
-/** 6) Use the .env file to configure the app */
- 
+app.get("/json", (req, res) => {
+  console.log(process.env.MESSAGE_STYLE, " <= message style")
+  /** 6) Use the .env file to configure the app */
+if(process.env.MESSAGE_STYLE === "uppercase"){
+ res.json({
+    message: "HELLO JSON"
+  }); 
+}else{
+  res.json({
+    message: "Hello json"
+  }); 
+}
+});
  
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
